@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Possibilities of Programming - Rayaan Tasnim</title>
+    <meta name="description" content="Explore career possibilities in programming for newbies, including front-end, back-end, full-stack, and T-shaped developer paths in the era of GPT.">
+    <meta name="keywords" content="programming careers, coding for beginners, frontend developer, backend developer, full stack developer, T-shaped developer, AI and programming">
+    <meta name="author" content="Rayaan Tasnim">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- FontAwesome for professional footer icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scrollbar and horizontal scroll hiding */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Responsive custom adjustments using media queries */
+        @media (max-width: 768px) {
+            .footer-content-wrapper {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+            .footer-social-icons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans relative overflow-x-hidden">
+
+    <!-- Three.js Canvas Background -->
+    <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-900 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Section -->
+            <a href="#" class="text-xl font-bold tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors">
+                For the Newbie
+            </a>
+
+            <!-- Menu Bar / Dropdown Trigger -->
+            <div class="relative">
+                <button id="menu-btn" class="flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium transition-all border border-slate-700 w-36 justify-center cursor-pointer">
+                    <span>Menu</span>
+                    <svg class="w-4 h-4 transition-transform duration-300" id="menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+
+                <!-- Dropdown Menu -->
+                <div id="dropdown-menu" class="absolute right-0 mt-3 w-56 bg-slate-900/95 backdrop-blur-md border border-slate-800 rounded-2xl shadow-2xl p-2 hidden opacity-0 transform -translate-y-2 transition-all duration-300">
+                    <a href="test.html" class="flex items-center px-4 py-3 rounded-xl hover:bg-cyan-500/10 hover:text-cyan-400 text-slate-300 transition-colors font-medium">
+                        Exam
+                    </a>
+                    <a href="https://rayaantasnim.github.io/Olympiad-Edge-Join/" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 rounded-xl hover:bg-cyan-500/10 hover:text-cyan-400 text-slate-300 transition-colors font-medium">
+                        Guideline Arena
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="relative z-10 pt-20">
+
+        <!-- 1. Hero Banner / Intro Section -->
+        <section class="min-h-[90vh] flex items-center justify-center py-20 px-6 gsap-section bg-slate-950/90 border-b border-slate-900">
+            <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-8 bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                    Step Into the Infinite Universe of Programming
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 text-justify leading-relaxed mb-10">
+                    Welcome, futuristic pioneers, to the ultimate gateway of digital creation! As a complete newbie standing at the precipice of the technological revolution, learning how to code is no longer just an optional hobby—it is the superpower that lets you shape reality itself. Every application, interactive game, intelligent machine, and complex global network begins with a single line of logic written by someone just like you. This journey might feel overwhelming at first glance, but beneath the syntax errors and structural puzzles lies an exhilarating world of boundless creativity, financial independence, and intellectual growth. You are not merely memorizing commands; you are learning how to translate human imagination into executable instructions that computers can bring to life. Dive deep into foundational logic, conquer algorithmic challenges, and prepare yourself to engineer the next generation of digital tools that will redefine how humanity lives, communicates, and evolves.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-6">
+                    <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" alt="Futuristic code editor workspace" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" alt="Advanced binary logic matrix" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Career Possibilities in this Era of GPT -->
+        <section class="min-h-[90vh] flex items-center justify-center py-20 px-6 gsap-section bg-slate-900/60 border-b border-slate-900">
+            <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-8 bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
+                    Career Possibilities in this Era of GPT
+                </h2>
+                <p class="text-lg md:text-xl text-slate-300 text-justify leading-relaxed mb-10">
+                    The rapid emergence of advanced Generative Pre-trained Transformers has completely disrupted traditional industries, leading many novices to wonder if learning how to program is still a viable career path. Far from replacing developers, the AI boom has actually supercharged the tech landscape, multiplying career possibilities exponentially. Today's modern developers do not just write boilerplate syntax manually; they orchestrate intelligent systems, integrate machine learning APIs, and design complex software architectures at unprecedented velocities. Companies across the globe are frantically searching for tech-literate individuals who understand how to leverage AI tools effectively to build robust software solutions. By combining foundational programming knowledge with AI collaboration, you unlock unique career trajectories such as AI integration specialist, automated workflow architect, prompt engineering consultant, and next-gen product developer. The barrier to entry has lowered, meaning your ability to think critically, solve abstract problems, and direct artificial intelligence toward creative business objectives is worth more now than ever before in human history.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-6">
+                    <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80" alt="Generative artificial intelligence interface" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Neural network graph and data flow" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. GPT Also Needs Programmers to Engineer -->
+        <section class="min-h-[90vh] flex items-center justify-center py-20 px-6 gsap-section bg-slate-950/90 border-b border-slate-900">
+            <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-8 bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
+                    GPT Also Needs Programmers to Engineer
+                </h2>
+                <p class="text-lg md:text-xl text-slate-300 text-justify leading-relaxed mb-10">
+                    Artificial intelligence models are astonishingly powerful language generators, but they exist within a vacuum until skilled programmers build the infrastructure that houses, scales, and connects them to the real world. A language model cannot deploy itself onto cloud servers, configure secure database connections, handle asynchronous API requests, or patch critical cybersecurity vulnerabilities. Programmers act as the master architects who give neural networks hands, eyes, and purpose by developing the software wrappers, microservices, and user interfaces that turn raw machine learning weights into seamless user applications. Furthermore, debugging AI-generated code requires deep conceptual understanding; LLMs frequently hallucinate syntax errors, security flaws, or edge-case logic failures that only a trained human programmer can catch and rectify. Therefore, the future belongs not to people who fear automation, but to proficient software engineers who master the art of directing, auditing, and scaling artificial intelligence. Your journey into coding is essentially training to become the indispensable supervisor of tomorrow's most advanced automated intelligence networks.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-6">
+                    <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=800&q=80" alt="Developer coding algorithms on dual screens" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80" alt="Source code matrix displaying software architecture" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sections 4, 5, 6: Normal Vertical Sections -->
+        <div id="career-cards-section">
+            <!-- 4. Career of Front End Developer -->
+            <section class="min-h-[90vh] flex items-center justify-center py-20 px-6 gsap-section bg-slate-900/60 border-b border-slate-900">
+                <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
+                    <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-8 bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
+                        Career of Front End Developer
+                    </h2>
+                    <p class="text-lg md:text-xl text-slate-300 text-justify leading-relaxed mb-10">
+                        Front-end development is the artistic and technical gateway of the internet, focusing entirely on what users see, touch, and experience inside their web browsers. As a front-end engineer, you are the digital interior designer and structural craftsman responsible for building engaging user interfaces, buttery-smooth animations, and responsive layouts that look stunning on every screen size from mobile phones to massive desktop monitors. Utilizing fundamental languages like HTML, structural styling frameworks like Tailwind CSS, and dynamic scripting through modern JavaScript, you transform raw design wireframes into breathing, interactive digital realities. In the modern web ecosystem, front-end developers also harness advanced frameworks such as React, Vue, or Next.js to build lightning-fast single-page applications that communicate effortlessly with backend servers. This career path is exceptionally rewarding for creative newbies who love instant visual feedback, user psychology, and crafting delightful, accessible experiences that millions of people interact with daily.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-6">
+                        <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80" alt="Frontend developer writing code" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                            <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=800&q=80" alt="UI/UX layout design on computer screen" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Career of Back End Developer -->
+            <section class="min-h-[90vh] flex items-center justify-center py-20 px-6 gsap-section bg-slate-950/90 border-b border-slate-900">
+                <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
+                    <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-8 bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
+                        Career of Back End Developer
+                    </h2>
+                    <p class="text-lg md:text-xl text-slate-300 text-justify leading-relaxed mb-10">
+                        While front-end developers craft the visible facade, back-end developers build the powerful, secure engine room that operates silently behind the scenes. This career path dives deep into server-side logic, database management, API creation, and server orchestration, ensuring that user data is stored securely, processed rapidly, and delivered accurately whenever requested. Backend engineers work with robust programming runtimes and languages like Node.js, Python, Go, or Java, designing complex algorithms to handle millions of simultaneous database queries without breaking a sweat. Security, scalability, and system optimization are your primary daily missions: you safeguard user accounts against cyber threats, design lightning-fast relational and non-relational database architectures, and integrate cloud services like AWS or Google Cloud. If you possess a logical mindset, love solving intricate puzzles, and derive immense satisfaction from building robust, high-performance engines that power global applications, back-end engineering is your ultimate calling.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-6">
+                        <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="Server rack and datacenter infrastructure" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80" alt="Database analytics and cloud network" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Career of Full Stack Developer -->
+            <section class="min-h-[90vh] flex items-center justify-center py-20 px-6 gsap-section bg-slate-900/60 border-b border-slate-900">
+                <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
+                    <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-8 bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">
+                        Career of Full Stack Developer
+                    </h2>
+                    <p class="text-lg md:text-xl text-slate-300 text-justify leading-relaxed mb-10">
+                        Full-stack developers are the ultimate Renaissance figures of the modern technological era, possessing comprehensive expertise across both client-facing interfaces and server-side infrastructure. Instead of specializing in just one isolated layer of a web application, a full-stack engineer commands the complete lifecycle of software development—from drafting initial UI components and designing database schemas to deploying production servers and monitoring system performance. This holistic vision enables you to conceptualize and construct an entire independent digital product entirely by yourself, making you an invaluable asset to fast-growing startups and agile engineering teams alike. You understand how data flows seamlessly from a user's browser click, through secure RESTful APIs, into encrypted database tables, and back again with lightning speed. For ambitious newbies who refuse to be pigeonholed into a single technical domain, becoming a full-stack developer offers absolute versatility, high earning potential, and the supreme creative freedom to build complete technological ecosystems from scratch.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-6">
+                        <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Full stack software engineering pipeline" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Developers collaborating on project architecture" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 7. Best Career Choice: T-shaped Full Stack Developer -->
+        <section class="min-h-[90vh] flex items-center justify-center py-20 px-6 gsap-section bg-slate-950/90 border-b border-slate-900">
+            <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-8 bg-gradient-to-r from-cyan-400 via-teal-400 to-indigo-400 bg-clip-text text-transparent">
+                    Best Career Choice: T-shaped Full Stack Developer
+                </h2>
+                <p class="text-lg md:text-xl text-slate-300 text-justify leading-relaxed mb-10">
+                    In the highly competitive job market of modern tech, simply knowing a little bit of everything or mastering one isolated skill is no longer enough to guarantee elite career success. Enter the concept of the T-shaped Full Stack Developer—the undisputed gold standard for ambitious newbie programmers entering the workforce today. The horizontal bar of the 'T' represents your broad, versatile understanding of fundamental computer science concepts, UI/UX principles, networking protocols, database management, and cloud deployment. Meanwhile, the deep vertical stem of the 'T' represents your world-class, specialized mastery in one specific niche domain, such as advanced frontend animation frameworks or high-throughput backend microservices. This unique combination allows you to communicate effectively with every department in a tech company while still bringing deep, irreplaceable problem-solving horsepower to critical project bottlenecks. Adopting a T-shaped learning philosophy ensures you remain endlessly adaptable in an era of rapid technological disruption, positioning you directly at the helm of lucrative leadership and senior engineering roles.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-6">
+                    <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="Professional strategic technical planning" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" alt="Focused developer working on complex architecture" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Button System Section -->
+        <section class="min-h-[80vh] flex items-center justify-center py-20 px-6 gsap-section bg-slate-900/60 border-b border-slate-900">
+            <div class="max-w-4xl mx-auto text-center bg-slate-900/90 backdrop-blur-md border border-slate-800 p-12 rounded-3xl shadow-2xl flex flex-col items-center">
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-6 text-slate-100">
+                    Begin Your Transformation Today
+                </h2>
+                <p class="text-slate-300 text-justify max-w-2xl mb-10 leading-relaxed">
+                    You have explored the infinite career possibilities, understood the vital symbiosis between human programmers and artificial intelligence, and discovered the power of becoming a T-shaped full stack developer. Now, the power to change your destiny rests entirely in your hands. Choose your next action below and take your first definitive step into the universe of professional coding.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 w-full max-w-xl justify-center">
+                    <a href="test.html" class="flex-1 px-8 py-5 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-center shadow-lg shadow-cyan-500/25 transition-all transform hover:-translate-y-1 text-lg">
+                        Take part in the test
+                    </a>
+                    <a href="https://rayaantasnim.github.io/Olympiad-Edge-Join/" target="_blank" rel="noopener noreferrer" class="flex-1 px-8 py-5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-cyan-400 font-bold text-center border border-cyan-500/30 transition-all transform hover:-translate-y-1 text-lg">
+                        Explore learning platform
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Upgraded Professional Footer (Simplified & Responsive) -->
+        <footer class="relative z-10 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-400 pt-16 pb-12 border-t border-cyan-500/20 overflow-hidden">
+            <!-- Decorative Glow Elements -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
+            <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto px-6 text-center space-y-8 mb-12">
+                <!-- Brand Title -->
+                <a href="#" class="inline-block text-2xl font-extrabold tracking-wider bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                    For the Newbie
+                </a>
+                
+                <!-- Requested Description Content -->
+                <p class="text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                    Empowering the next generation of visionary programmers with crystal-clear roadmaps, cutting-edge technical perspectives, and unmatched career mentorship in the age of AI.
+                </p>
+
+                <!-- Social Icons -->
+                <div class="flex items-center justify-center space-x-4 pt-2 footer-social-icons">
+                    <a href="https://github.com/rayaantasnim" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all shadow-lg group">
+                        <i class="fab fa-github text-lg group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all shadow-lg group">
+                        <i class="fab fa-linkedin-in text-lg group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all shadow-lg group">
+                        <i class="fab fa-twitter text-lg group-hover:scale-110 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bottom Sub-footer / Copyright -->
+            <div class="max-w-7xl mx-auto px-6 pt-8 border-t border-slate-900 text-center">
+                <p class="text-xs text-slate-500">
+                    &copy; 2026 For the Newbie. Authored with precision by <span class="text-cyan-400 font-medium">Rayaan Tasnim</span>. All rights reserved.
+                </p>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- JavaScript Integration -->
+    <script>
+        // 1. Navigation Bar Scroll Effect (Solid to Glossy)
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                navbar.classList.add('bg-slate-900/80', 'backdrop-blur-md', 'shadow-lg', 'border-slate-800/50');
+                navbar.classList.remove('bg-slate-900');
+            } else {
+                navbar.classList.remove('bg-slate-900/80', 'backdrop-blur-md', 'shadow-lg', 'border-slate-800/50');
+                navbar.classList.add('bg-slate-900');
+            }
+        });
+
+        // Dropdown Toggle Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const menuArrow = document.getElementById('menu-arrow');
+        let isDropdownOpen = false;
+
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isDropdownOpen = !isDropdownOpen;
+            if (isDropdownOpen) {
+                dropdownMenu.classList.remove('hidden');
+                setTimeout(() => {
+                    dropdownMenu.classList.remove('opacity-0', '-translate-y-2');
+                    menuArrow.classList.add('rotate-180');
+                }, 10);
+            } else {
+                dropdownMenu.classList.add('opacity-0', '-translate-y-2');
+                menuArrow.classList.remove('rotate-180');
+                setTimeout(() => {
+                    dropdownMenu.classList.add('hidden');
+                }, 300);
+            }
+        });
+
+        window.addEventListener('click', () => {
+            if (isDropdownOpen) {
+                isDropdownOpen = false;
+                dropdownMenu.classList.add('opacity-0', '-translate-y-2');
+                menuArrow.classList.remove('rotate-180');
+                setTimeout(() => {
+                    dropdownMenu.classList.add('hidden');
+                }, 300);
+            }
+        });
+
+        // 2. Enhanced Three.js 3D Cosmic Background + Floating Particles & Dynamic Lighting
+        const canvas = document.getElementById('bg-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Create Multi-layered Cosmic Particle System
+        const particleCount = 1200;
+        const particleGeometry = new THREE.BufferGeometry();
+        const particlePositions = new Float32Array(particleCount * 3);
+        const particleVelocities = [];
+
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            particlePositions[i] = (Math.random() - 0.5) * 30;     // x
+            particlePositions[i + 1] = (Math.random() - 0.5) * 30; // y
+            particlePositions[i + 2] = (Math.random() - 0.5) * 30; // z
+            
+            particleVelocities.push({
+                x: (Math.random() - 0.5) * 0.008,
+                y: -Math.random() * 0.02 - 0.005,
+                z: (Math.random() - 0.5) * 0.008
+            });
+        }
+
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+
+        // Enhanced Glowing Particle Material
+        const particleMaterial = new THREE.PointsMaterial({
+            size: 0.05,
+            color: 0x22d3ee,
+            transparent: true,
+            opacity: 0.9,
+            blending: THREE.AdditiveBlending
+        });
+
+        const starField = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(starField);
+
+        // Add subtle floating geometric wireframe rings for deep cosmic atmosphere
+        const ringGeometry = new THREE.TorusGeometry(8, 0.02, 16, 100);
+        const ringMaterial = new THREE.MeshBasicMaterial({ color: 0x6366f1, transparent: true, opacity: 0.15, wireframe: true });
+        const cosmicRing = new THREE.Mesh(ringGeometry, ringMaterial);
+        scene.add(cosmicRing);
+
+        camera.position.z = 6;
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+
+        window.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        function animateCosmos() {
+            requestAnimationFrame(animateCosmos);
+
+            targetX += (mouseX - targetX) * 0.04;
+            targetY += (mouseY - targetY) * 0.04;
+
+            starField.rotation.y = targetX * 0.4;
+            starField.rotation.x = targetY * 0.4;
+
+            cosmicRing.rotation.x += 0.001;
+            cosmicRing.rotation.y += 0.002;
+
+            const positions = starField.geometry.attributes.position.array;
+            for (let i = 0; i < particleCount; i++) {
+                let i3 = i * 3;
+                positions[i3] += particleVelocities[i].x;
+                positions[i3 + 1] += particleVelocities[i].y;
+                positions[i3 + 2] += particleVelocities[i].z;
+
+                if (positions[i3 + 1] < -15) {
+                    positions[i3 + 1] = 15;
+                    positions[i3] = (Math.random() - 0.5) * 30;
+                }
+            }
+            starField.geometry.attributes.position.needsUpdate = true;
+
+            renderer.render(scene, camera);
+        }
+        animateCosmos();
+
+        // 4. GSAP Fade-in Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray('.gsap-section').forEach((section) => {
+            gsap.fromTo(section, 
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+    </script>
+</body>
+</html>
