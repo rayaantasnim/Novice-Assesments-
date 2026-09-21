@@ -18,6 +18,8 @@
     <!-- GSAP for Scroll Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         .no-scrollbar::-webkit-scrollbar {
@@ -27,6 +29,7 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
         /* Custom Neon Glow & Hover Effects */
         .neon-glow-cyan {
             box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), inset 0 0 15px rgba(6, 182, 212, 0.1);
@@ -52,6 +55,19 @@
         .neon-glow-teal:hover {
             box-shadow: 0 0 35px rgba(20, 184, 166, 0.6), inset 0 0 20px rgba(20, 184, 166, 0.2);
         }
+        .neon-glow-amber {
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3), inset 0 0 15px rgba(245, 158, 11, 0.1);
+        }
+        .neon-glow-amber:hover {
+            box-shadow: 0 0 35px rgba(245, 158, 11, 0.6), inset 0 0 20px rgba(245, 158, 11, 0.2);
+        }
+        .neon-glow-rose {
+            box-shadow: 0 0 20px rgba(244, 63, 94, 0.3), inset 0 0 15px rgba(244, 63, 94, 0.1);
+        }
+        .neon-glow-rose:hover {
+            box-shadow: 0 0 35px rgba(244, 63, 94, 0.6), inset 0 0 20px rgba(244, 63, 94, 0.2);
+        }
+
         .neon-text-cyan {
             text-shadow: 0 0 10px rgba(6, 182, 212, 0.6), 0 0 20px rgba(6, 182, 212, 0.3);
         }
@@ -64,6 +80,13 @@
         .neon-text-teal {
             text-shadow: 0 0 10px rgba(20, 184, 166, 0.6), 0 0 20px rgba(20, 184, 166, 0.3);
         }
+        .neon-text-amber {
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.6), 0 0 20px rgba(245, 158, 11, 0.3);
+        }
+        .neon-text-rose {
+            text-shadow: 0 0 10px rgba(244, 63, 94, 0.6), 0 0 20px rgba(244, 63, 94, 0.3);
+        }
+
         /* Three.js Canvas Styling */
         #bg-canvas {
             position: fixed;
@@ -73,6 +96,60 @@
             height: 100vh;
             z-index: 0;
             pointer-events: none;
+        }
+
+        /* Spotlight Overlay Layer */
+        #spotlight-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(600px circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh), rgba(14, 165, 233, 0.18), rgba(15, 23, 42, 0.85) 70%, rgba(2, 6, 23, 0.98) 100%);
+        }
+
+        /* Enforce single-line non-wrapping points declaration across all viewports */
+        .points-badge {
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* Advanced Responsive Media Queries for Margins and Paddings */
+        @media (max-width: 640px) {
+            .responsive-section {
+                padding-top: 2.5rem !important;
+                padding-bottom: 2.5rem !important;
+                padding-left: 0.75rem !important;
+                padding-right: 0.75rem !important;
+            }
+            .responsive-header {
+                padding: 0.875rem 1rem !important;
+                gap: 0.5rem !important;
+            }
+            .responsive-content {
+                padding: 1rem !important;
+            }
+            .responsive-title {
+                font-size: 0.95rem !important;
+                line-height: 1.35 !important;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .responsive-section {
+                padding-top: 3.5rem !important;
+                padding-bottom: 3.5rem !important;
+                padding-left: 1.5rem !important;
+                padding-right: 1.5rem !important;
+            }
+            .responsive-header {
+                padding: 1.25rem 1.5rem !important;
+            }
+            .responsive-content {
+                padding: 1.75rem !important;
+            }
         }
 
         /* Responsive footer media query adjustments */
@@ -92,6 +169,9 @@
 
     <!-- Three.js 3D Universe Canvas -->
     <canvas id="bg-canvas"></canvas>
+
+    <!-- Cursor Spotlight Overlay Effect -->
+    <div id="spotlight-overlay"></div>
 
     <!-- Navigation Bar -->
     <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-900/80 backdrop-blur-md border-b border-cyan-500/20 neon-glow-cyan">
@@ -127,12 +207,12 @@
     <main class="relative z-10 pt-20">
 
         <!-- Section 1: Hero Banner / Intro Section (Full Screen Width) -->
-        <section class="min-h-[70vh] w-full flex items-center justify-center py-20 px-6 bg-slate-950/60 backdrop-blur-sm border-b border-cyan-500/30 gsap-section">
+        <section class="min-h-[70vh] w-full flex items-center justify-center py-20 px-6 bg-cyan-950/20 backdrop-blur-sm border-b border-cyan-500/30 gsap-section responsive-section">
             <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
-                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent neon-text-cyan">
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent neon-text-cyan">
                     The Ultimate Programming Assessment & Architectural Legacy
                 </h1>
-                <p class="text-lg md:text-xl text-slate-300 text-justify leading-relaxed mb-8 p-6 bg-slate-900/60 rounded-2xl border border-cyan-500/30 neon-glow-cyan">
+                <p class="text-lg md:text-xl text-cyan-100/90 text-justify leading-relaxed mb-8 p-6 bg-cyan-900/30 rounded-2xl border border-cyan-500/40 neon-glow-cyan">
                     Welcome, future developer! If you are just starting out with coding, think of this page as your friendly guide. We test foundational web architectures, modern software paradigms, and critical engineering choices designed to help novice coders step into the world of professional software development with ease.
                 </p>
                 <div class="rounded-2xl overflow-hidden border border-cyan-500/40 shadow-2xl w-full max-w-3xl neon-glow-cyan transition-transform duration-500 hover:scale-[1.01]">
@@ -142,41 +222,41 @@
         </section>
 
         <!-- Section 2: Question 01 (Full Screen Width) -->
-        <section class="py-16 px-6 w-full bg-slate-900/70 backdrop-blur-sm border-b border-cyan-500/30 gsap-section">
+        <section class="py-16 px-6 w-full bg-indigo-950/20 backdrop-blur-sm border-b border-indigo-500/30 gsap-section responsive-section">
             <div class="max-w-6xl mx-auto">
-                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-cyan-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-cyan" data-target="ans-1">
-                    <h2 class="text-xl md:text-2xl font-bold text-cyan-400 text-left neon-text-cyan">
+                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-indigo-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-indigo responsive-header" data-target="ans-1">
+                    <h2 class="text-xl md:text-2xl font-bold text-indigo-300 text-left neon-text-indigo responsive-title">
                         1. What do you mean by Hybrid website?
                     </h2>
-                    <div class="flex items-center gap-4">
-                        <span class="px-4 py-1.5 rounded-full bg-cyan-500/20 text-cyan-300 font-bold text-sm border border-cyan-500/50 neon-glow-cyan">2 points</span>
-                        <svg class="w-6 h-6 text-cyan-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                        <span class="px-3 md:px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 font-bold text-xs md:text-sm border border-indigo-500/50 neon-glow-indigo points-badge">2 points</span>
+                        <svg class="w-6 h-6 text-indigo-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
                 </div>
-                <div id="ans-1" class="hidden mt-4 p-6 md:p-10 bg-slate-950/95 rounded-2xl border border-cyan-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-cyan">
+                <div id="ans-1" class="hidden mt-4 p-6 md:p-10 bg-indigo-950/90 rounded-2xl border border-indigo-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-indigo responsive-content">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                         <div>
                             <p class="mb-4 text-justify text-base md:text-lg">
-                                <strong class="text-cyan-300">Architectural Overview:</strong> A hybrid website integrates both Server-Side Rendering (SSR) and Client-Side Rendering (CSR), or combines static site generation with dynamic API microservices. It merges the rapid time-to-first-byte and SEO advantages of <span class="text-cyan-400 font-semibold">static architecture</span> with the real-time data mutability of <span class="text-indigo-400 font-semibold">dynamic web applications</span>.
+                                <strong class="text-indigo-300">Architectural Overview:</strong> A hybrid website integrates both Server-Side Rendering (SSR) and Client-Side Rendering (CSR), or combines static site generation with dynamic API microservices. It merges the rapid time-to-first-byte and SEO advantages of <span class="text-cyan-400 font-semibold">static architecture</span> with the real-time data mutability of <span class="text-indigo-400 font-semibold">dynamic web applications</span>.
                             </p>
                             <ul class="space-y-3">
-                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-cyan-500/20">
-                                    <i class="fas fa-bolt text-cyan-400 mt-1"></i>
+                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-indigo-500/20">
+                                    <i class="fas fa-bolt text-indigo-400 mt-1"></i>
                                     <span><strong>Pre-rendered Delivery:</strong> Initial HTML payloads are generated at build time or on-demand via edge servers, maximizing performance metrics.</span>
                                 </li>
-                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-cyan-500/20">
-                                    <i class="fas fa-sync text-cyan-400 mt-1"></i>
+                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-indigo-500/20">
+                                    <i class="fas fa-sync text-indigo-400 mt-1"></i>
                                     <span><strong>Asynchronous Hydration:</strong> JavaScript bundles hydrate the DOM post-load, enabling seamless state management and API synchronization without full-page reloads.</span>
                                 </li>
-                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-cyan-500/20">
-                                    <i class="fas fa-network-wired text-cyan-400 mt-1"></i>
+                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-indigo-500/20">
+                                    <i class="fas fa-network-wired text-indigo-400 mt-1"></i>
                                     <span><strong>Optimized Caching:</strong> Static assets are cached globally via Content Delivery Networks (CDNs), while dynamic queries resolve through secure backend gateways.</span>
                                 </li>
                             </ul>
                         </div>
-                        <div class="rounded-xl overflow-hidden border border-cyan-500/40 neon-glow-cyan">
+                        <div class="rounded-xl overflow-hidden border border-indigo-500/40 neon-glow-indigo">
                             <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Hybrid website web architecture concept" class="w-full h-64 object-cover">
                         </div>
                     </div>
@@ -185,39 +265,39 @@
         </section>
 
         <!-- Section 3: Question 02 (Full Screen Width) -->
-        <section class="py-16 px-6 w-full bg-slate-950/80 backdrop-blur-sm border-b border-indigo-500/30 gsap-section">
+        <section class="py-16 px-6 w-full bg-purple-950/20 backdrop-blur-sm border-b border-purple-500/30 gsap-section responsive-section">
             <div class="max-w-6xl mx-auto">
-                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-indigo-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-indigo" data-target="ans-2">
-                    <h2 class="text-xl md:text-2xl font-bold text-indigo-400 text-left neon-text-indigo">
+                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-purple-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-purple responsive-header" data-target="ans-2">
+                    <h2 class="text-xl md:text-2xl font-bold text-purple-300 text-left neon-text-purple responsive-title">
                         2. Why SaaS is the greatest business model in this era of technology?
                     </h2>
-                    <div class="flex items-center gap-4">
-                        <span class="px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 font-bold text-sm border border-indigo-500/50 neon-glow-indigo">4 points</span>
-                        <svg class="w-6 h-6 text-indigo-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                        <span class="px-3 md:px-4 py-1.5 rounded-full bg-purple-500/20 text-purple-300 font-bold text-xs md:text-sm border border-purple-500/50 neon-glow-purple points-badge">4 points</span>
+                        <svg class="w-6 h-6 text-purple-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
                 </div>
-                <div id="ans-2" class="hidden mt-4 p-6 md:p-10 bg-slate-950/95 rounded-2xl border border-indigo-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-indigo">
+                <div id="ans-2" class="hidden mt-4 p-6 md:p-10 bg-purple-950/90 rounded-2xl border border-purple-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-purple responsive-content">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                        <div class="order-2 md:order-1 rounded-xl overflow-hidden border border-indigo-500/40 neon-glow-indigo">
+                        <div class="order-2 md:order-1 rounded-xl overflow-hidden border border-purple-500/40 neon-glow-purple">
                             <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SaaS cloud subscription dashboard analytics" class="w-full h-64 object-cover">
                         </div>
                         <div class="order-1 md:order-2">
                             <p class="mb-4 text-justify text-base md:text-lg">
-                                <strong class="text-indigo-300">Software as a Service (SaaS) Mechanics:</strong> SaaS is a software distribution model where applications are hosted centrally by a vendor and licensed on a recurring subscription basis, delivered via the cloud over HTTP/HTTPS protocols.
+                                <strong class="text-purple-300">Software as a Service (SaaS) Mechanics:</strong> SaaS is a software distribution model where applications are hosted centrally by a vendor and licensed on a recurring subscription basis, delivered via the cloud over HTTP/HTTPS protocols.
                             </p>
                             <ul class="space-y-3">
-                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-indigo-500/20">
-                                    <i class="fas fa-coins text-indigo-400 mt-1"></i>
+                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-purple-500/20">
+                                    <i class="fas fa-coins text-purple-400 mt-1"></i>
                                     <span><strong>Recurring Revenue (MRR/ARR):</strong> Generates predictable cash flow streams, lowering customer acquisition cost (CAC) payback periods and increasing business valuation multiples.</span>
                                 </li>
-                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-indigo-500/20">
-                                    <i class="fas fa-cloud-upload-alt text-indigo-400 mt-1"></i>
+                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-purple-500/20">
+                                    <i class="fas fa-cloud-upload-alt text-purple-400 mt-1"></i>
                                     <span><strong>Centralized Deployment:</strong> Patches, database migrations, and security updates are deployed once to the production server environment, instantly provisioning updates for all tenants globally.</span>
                                 </li>
-                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-indigo-500/20">
-                                    <i class="fas fa-shield-alt text-indigo-400 mt-1"></i>
+                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-purple-500/20">
+                                    <i class="fas fa-shield-alt text-purple-400 mt-1"></i>
                                     <span><strong>Multi-Tenant Scalability:</strong> Leverages shared infrastructure and database partitioning to scale resource allocation dynamically based on user tier utilization.</span>
                                 </li>
                             </ul>
@@ -228,45 +308,45 @@
         </section>
 
         <!-- Section 4: Question 03 (Full Screen Width) -->
-        <section class="py-16 px-6 w-full bg-slate-900/70 backdrop-blur-sm border-b border-purple-500/30 gsap-section">
+        <section class="py-16 px-6 w-full bg-amber-950/20 backdrop-blur-sm border-b border-amber-500/30 gsap-section responsive-section">
             <div class="max-w-6xl mx-auto">
-                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-purple-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-purple" data-target="ans-3">
-                    <h2 class="text-xl md:text-2xl font-bold text-purple-400 text-left neon-text-purple">
+                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-amber-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-amber responsive-header" data-target="ans-3">
+                    <h2 class="text-xl md:text-2xl font-bold text-amber-300 text-left neon-text-amber responsive-title">
                         3. What kind of page was the one you viewed earlier? Describe it.
                     </h2>
-                    <div class="flex items-center gap-4">
-                        <span class="px-4 py-1.5 rounded-full bg-purple-500/20 text-purple-300 font-bold text-sm border border-purple-500/50 neon-glow-purple">8 points</span>
-                        <svg class="w-6 h-6 text-purple-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                        <span class="px-3 md:px-4 py-1.5 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs md:text-sm border border-amber-500/50 neon-glow-amber points-badge">8 points</span>
+                        <svg class="w-6 h-6 text-amber-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
                 </div>
-                <div id="ans-3" class="hidden mt-4 p-6 md:p-10 bg-slate-950/95 rounded-2xl border border-purple-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-purple">
+                <div id="ans-3" class="hidden mt-4 p-6 md:p-10 bg-amber-950/90 rounded-2xl border border-amber-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-amber responsive-content">
                     <div class="space-y-6">
                         <p class="text-justify text-base md:text-lg">
-                            <strong class="text-purple-300">Structural Anatomy of the Landing Page:</strong> The previous page is mainly a static page. The preceding page functions as a client-rendered single-page interface relying on optimized HTML5, utility-first CSS styling via Tailwind CSS, and asynchronous JavaScript controllers for interactive dropdown states and viewport animations.
+                            <strong class="text-amber-300">Structural Anatomy of the Landing Page:</strong> The previous page is mainly a static page. The preceding page functions as a client-rendered single-page interface relying on optimized HTML5, utility-first CSS styling via Tailwind CSS, and asynchronous JavaScript controllers for interactive dropdown states and viewport animations.
                         </p>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="bg-slate-900/80 p-5 rounded-xl border border-purple-500/30 neon-glow-purple">
-                                <h3 class="text-purple-300 font-bold mb-2 flex items-center gap-2">
+                            <div class="bg-slate-900/80 p-5 rounded-xl border border-amber-500/30 neon-glow-amber">
+                                <h3 class="text-amber-300 font-bold mb-2 flex items-center gap-2">
                                     <i class="fas fa-code"></i> Markup Efficiency
                                 </h3>
                                 <p class="text-sm text-slate-400">Employs semantic HTML5 tags and atomic CSS classes to maintain a minimal DOM tree footprint and optimal paint performance.</p>
                             </div>
-                            <div class="bg-slate-900/80 p-5 rounded-xl border border-purple-500/30 neon-glow-purple">
-                                <h3 class="text-purple-300 font-bold mb-2 flex items-center gap-2">
+                            <div class="bg-slate-900/80 p-5 rounded-xl border border-amber-500/30 neon-glow-amber">
+                                <h3 class="text-amber-300 font-bold mb-2 flex items-center gap-2">
                                     <i class="fas fa-magic"></i> Script Execution
                                 </h3>
                                 <p class="text-sm text-slate-400">Integrates WebGL contexts through Three.js and scroll orchestration via GSAP ScrollTrigger for hardware-accelerated visual rendering.</p>
                             </div>
-                            <div class="bg-slate-900/80 p-5 rounded-xl border border-purple-500/30 neon-glow-purple">
-                                <h3 class="text-purple-300 font-bold mb-2 flex items-center gap-2">
+                            <div class="bg-slate-900/80 p-5 rounded-xl border border-amber-500/30 neon-glow-amber">
+                                <h3 class="text-amber-300 font-bold mb-2 flex items-center gap-2">
                                     <i class="fas fa-graduation-cap"></i> Pedagogical Design
                                 </h3>
                                 <p class="text-sm text-slate-400">Structures complex technical concepts into modular DOM sections optimized for cognitive load distribution and analytical review.</p>
                             </div>
                         </div>
-                        <div class="rounded-xl overflow-hidden border border-purple-500/40 neon-glow-purple">
+                        <div class="rounded-xl overflow-hidden border border-amber-500/40 neon-glow-amber">
                             <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80" alt="Code editor screen showing clean beginner programming layout" class="w-full h-56 object-cover">
                         </div>
                     </div>
@@ -275,20 +355,20 @@
         </section>
 
         <!-- Section 5: Question 04 (Full Screen Width) -->
-        <section class="py-16 px-6 w-full bg-slate-950/80 backdrop-blur-sm border-b border-teal-500/30 gsap-section">
+        <section class="py-16 px-6 w-full bg-teal-950/20 backdrop-blur-sm border-b border-teal-500/30 gsap-section responsive-section">
             <div class="max-w-6xl mx-auto">
-                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-teal-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-teal" data-target="ans-4">
-                    <h2 class="text-xl md:text-2xl font-bold text-teal-400 text-left neon-text-teal">
+                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-teal-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-teal responsive-header" data-target="ans-4">
+                    <h2 class="text-xl md:text-2xl font-bold text-teal-300 text-left neon-text-teal responsive-title">
                         4. In your opinion, which type of website is better—static or dynamic?
                     </h2>
-                    <div class="flex items-center gap-4">
-                        <span class="px-4 py-1.5 rounded-full bg-teal-500/20 text-teal-300 font-bold text-sm border border-teal-500/50 neon-glow-teal">10 points</span>
+                    <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                        <span class="px-3 md:px-4 py-1.5 rounded-full bg-teal-500/20 text-teal-300 font-bold text-xs md:text-sm border border-teal-500/50 neon-glow-teal points-badge">10 points</span>
                         <svg class="w-6 h-6 text-teal-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
                 </div>
-                <div id="ans-4" class="hidden mt-4 p-6 md:p-10 bg-slate-950/95 rounded-2xl border border-teal-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-teal">
+                <div id="ans-4" class="hidden mt-4 p-6 md:p-10 bg-teal-950/90 rounded-2xl border border-teal-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-teal responsive-content">
                     <p class="mb-6 text-center text-xl font-bold text-teal-300 neon-text-teal">
                         "Architectural selection is strictly dictated by functional requirements, consistency models, and scaling constraints."
                     </p>
@@ -329,55 +409,55 @@
         </section>
 
         <!-- Section 6: Question 05 (Full Screen Width) -->
-        <section class="py-16 px-6 w-full bg-slate-900/70 backdrop-blur-sm border-b border-cyan-500/30 gsap-section">
+        <section class="py-16 px-6 w-full bg-rose-950/20 backdrop-blur-sm border-b border-rose-500/30 gsap-section responsive-section">
             <div class="max-w-6xl mx-auto">
-                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-cyan-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-cyan" data-target="ans-5">
-                    <h2 class="text-xl md:text-2xl font-bold text-cyan-400 text-left neon-text-cyan">
-                        5. Which features would need to be added to make it possible <br> to convert the previous page into a hybrid one?
+                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-rose-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-rose responsive-header" data-target="ans-5">
+                    <h2 class="text-xl md:text-2xl font-bold text-rose-300 text-left neon-text-rose responsive-title">
+                        5. Which features would need to be added to make it possible to convert the previous page into a hybrid one?
                     </h2>
-                    <div class="flex items-center gap-4">
-                        <span class="px-4 py-1.5 rounded-full bg-cyan-500/20 text-cyan-300 font-bold text-sm border border-cyan-500/50 neon-glow-cyan">12 points</span>
-                        <svg class="w-6 h-6 text-cyan-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                        <span class="px-3 md:px-4 py-1.5 rounded-full bg-rose-500/20 text-rose-300 font-bold text-xs md:text-sm border border-rose-500/50 neon-glow-rose points-badge">12 points</span>
+                        <svg class="w-6 h-6 text-rose-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
                 </div>
-                <div id="ans-5" class="hidden mt-4 p-6 md:p-10 bg-slate-950/95 rounded-2xl border border-cyan-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-cyan">
+                <div id="ans-5" class="hidden mt-4 p-6 md:p-10 bg-rose-950/90 rounded-2xl border border-rose-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-rose responsive-content">
                     <div class="space-y-6">
                         <p class="text-justify text-base md:text-lg">
-                            <strong class="text-cyan-300">Transitioning to Hybrid Architecture:</strong> Upgrading a purely static client-side document into a comprehensive hybrid application requires integrating server-side infrastructure layers, state management systems, and secure data pipelines:
+                            <strong class="text-rose-300">Transitioning to Hybrid Architecture:</strong> Upgrading a purely static client-side document into a comprehensive hybrid application requires integrating server-side infrastructure layers, state management systems, and secure data pipelines:
                         </p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <ul class="space-y-3">
-                                <li class="flex items-start gap-3 bg-slate-900/85 p-4 rounded-xl border border-cyan-500/30 neon-glow-cyan">
-                                    <i class="fas fa-server text-cyan-400 mt-1"></i>
+                                <li class="flex items-start gap-3 bg-slate-900/85 p-4 rounded-xl border border-rose-500/30 neon-glow-rose">
+                                    <i class="fas fa-server text-rose-400 mt-1"></i>
                                     <div>
-                                        <strong class="text-cyan-300">Server-Side Framework Runtime:</strong> Integrate a framework like Next.js or Nuxt to execute server-side rendering (SSR) and incremental static regeneration (ISR).
+                                        <strong class="text-rose-300">Server-Side Framework Runtime:</strong> Integrate a framework like Next.js or Nuxt to execute server-side rendering (SSR) and incremental static regeneration (ISR).
                                     </div>
                                 </li>
-                                <li class="flex items-start gap-3 bg-slate-900/85 p-4 rounded-xl border border-cyan-500/30 neon-glow-cyan">
-                                    <i class="fas fa-user-lock text-cyan-400 mt-1"></i>
+                                <li class="flex items-start gap-3 bg-slate-900/85 p-4 rounded-xl border border-rose-500/30 neon-glow-rose">
+                                    <i class="fas fa-user-lock text-rose-400 mt-1"></i>
                                     <div>
-                                        <strong class="text-cyan-300">Authentication Middleware:</strong> Implement JWT or OAuth-based session validation to manage user roles, secure API routes, and protect sensitive assessment endpoints.
+                                        <strong class="text-rose-300">Authentication Middleware:</strong> Implement JWT or OAuth-based session validation to manage user roles, secure API routes, and protect sensitive assessment endpoints.
                                     </div>
                                 </li>
                             </ul>
                             <ul class="space-y-3">
-                                <li class="flex items-start gap-3 bg-slate-900/85 p-4 rounded-xl border border-cyan-500/30 neon-glow-cyan">
-                                    <i class="fas fa-database text-cyan-400 mt-1"></i>
+                                <li class="flex items-start gap-3 bg-slate-900/85 p-4 rounded-xl border border-rose-500/30 neon-glow-rose">
+                                    <i class="fas fa-database text-rose-400 mt-1"></i>
                                     <div>
-                                        <strong class="text-cyan-300">Relational Database & ORM:</strong> Provision a PostgreSQL database interfaced via an ORM (like Prisma) to persist user assessment scores, audit logs, and profile states.
+                                        <strong class="text-rose-300">Relational Database & ORM:</strong> Provision a PostgreSQL database interfaced via an ORM (like Prisma) to persist user assessment scores, audit logs, and profile states.
                                     </div>
                                 </li>
-                                <li class="flex items-start gap-3 bg-slate-900/85 p-4 rounded-xl border border-cyan-500/30 neon-glow-cyan">
-                                    <i class="fas fa-plug text-cyan-400 mt-1"></i>
+                                <li class="flex items-start gap-3 bg-slate-900/85 p-4 rounded-xl border border-rose-500/30 neon-glow-rose">
+                                    <i class="fas fa-plug text-rose-400 mt-1"></i>
                                     <div>
-                                        <strong class="text-cyan-300">RESTful or GraphQL APIs:</strong> Construct backend API routes to handle asynchronous data payloads, enabling real-time telemetry and component re-hydration.
+                                        <strong class="text-rose-300">RESTful or GraphQL APIs:</strong> Construct backend API routes to handle asynchronous data payloads, enabling real-time telemetry and component re-hydration.
                                     </div>
                                 </li>
                             </ul>
                         </div>
-                        <div class="rounded-xl overflow-hidden border border-cyan-500/40 neon-glow-cyan mt-4">
+                        <div class="rounded-xl overflow-hidden border border-rose-500/40 neon-glow-rose mt-4">
                             <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" alt="Cloud server infrastructure and hybrid architecture network" class="w-full h-52 object-cover">
                         </div>
                     </div>
@@ -386,7 +466,7 @@
         </section>
 
         <!-- Upgraded Professional Footer (Simplified & Responsive) -->
-        <footer class="relative z-10 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-400 pt-16 pb-12 border-t border-cyan-500/20 overflow-hidden neon-glow-cyan">
+        <footer class="relative z-10 bg-gradient-to-b from-slate-950 via-cyan-950/40 to-slate-950 text-slate-400 pt-16 pb-12 border-t border-cyan-500/20 overflow-hidden neon-glow-cyan responsive-section">
             <!-- Decorative Glow Elements -->
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
             <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
@@ -426,8 +506,14 @@
 
     </main>
 
-    <!-- JavaScript Integration (Three.js, GSAP, and UI Logic) -->
+    <!-- JavaScript Integration (Three.js, GSAP, Confetti, and UI Logic) -->
     <script>
+        // Spotlight effect tracking mouse coordinates
+        window.addEventListener('mousemove', (e) => {
+            document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+            document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+        });
+
         // 1. Three.js 3D Universe Background (Moving Stars & Falling Stars)
         const canvas = document.getElementById('bg-canvas');
         const scene = new THREE.Scene();
@@ -608,10 +694,10 @@
             }
         });
 
-        // Question Dropdown Accordion Logic
+        // Question Dropdown Accordion Logic & Confetti Trigger
         const qTriggers = document.querySelectorAll('.q-dropdown-trigger');
         qTriggers.forEach(trigger => {
-            trigger.addEventListener('click', () => {
+            trigger.addEventListener('click', (e) => {
                 const targetId = trigger.getAttribute('data-target');
                 const targetAns = document.getElementById(targetId);
                 const arrow = trigger.querySelector('.q-arrow');
@@ -619,6 +705,20 @@
                 if (targetAns.classList.contains('hidden')) {
                     targetAns.classList.remove('hidden');
                     arrow.classList.add('rotate-180');
+
+                    // Fire Confetti effect at trigger coordinates on opening
+                    const rect = trigger.getBoundingClientRect();
+                    const x = (rect.left + rect.width / 2) / window.innerWidth;
+                    const y = (rect.top + rect.height / 2) / window.innerHeight;
+
+                    if (typeof confetti === 'function') {
+                        confetti({
+                            particleCount: 70,
+                            spread: 60,
+                            origin: { x: x, y: y },
+                            colors: ['#06b6d4', '#6366f1', '#a855f7', '#14b8a6', '#f59e0b', '#f43f5e']
+                        });
+                    }
                 } else {
                     targetAns.classList.add('hidden');
                     arrow.classList.remove('rotate-180');
