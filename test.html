@@ -21,181 +21,39 @@
     <!-- Canvas Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <style>
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Custom Neon Glow & Hover Effects */
-        .neon-glow-cyan {
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), inset 0 0 15px rgba(6, 182, 212, 0.1);
-        }
-        .neon-glow-cyan:hover {
-            box-shadow: 0 0 35px rgba(6, 182, 212, 0.6), inset 0 0 20px rgba(6, 182, 212, 0.2);
-        }
-        .neon-glow-indigo {
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3), inset 0 0 15px rgba(99, 102, 241, 0.1);
-        }
-        .neon-glow-indigo:hover {
-            box-shadow: 0 0 35px rgba(99, 102, 241, 0.6), inset 0 0 20px rgba(99, 102, 241, 0.2);
-        }
-        .neon-glow-purple {
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3), inset 0 0 15px rgba(168, 85, 247, 0.1);
-        }
-        .neon-glow-purple:hover {
-            box-shadow: 0 0 35px rgba(168, 85, 247, 0.6), inset 0 0 20px rgba(168, 85, 247, 0.2);
-        }
-        .neon-glow-teal {
-            box-shadow: 0 0 20px rgba(20, 184, 166, 0.3), inset 0 0 15px rgba(20, 184, 166, 0.1);
-        }
-        .neon-glow-teal:hover {
-            box-shadow: 0 0 35px rgba(20, 184, 166, 0.6), inset 0 0 20px rgba(20, 184, 166, 0.2);
-        }
-        .neon-glow-amber {
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3), inset 0 0 15px rgba(245, 158, 11, 0.1);
-        }
-        .neon-glow-amber:hover {
-            box-shadow: 0 0 35px rgba(245, 158, 11, 0.6), inset 0 0 20px rgba(245, 158, 11, 0.2);
-        }
-        .neon-glow-rose {
-            box-shadow: 0 0 20px rgba(244, 63, 94, 0.3), inset 0 0 15px rgba(244, 63, 94, 0.1);
-        }
-        .neon-glow-rose:hover {
-            box-shadow: 0 0 35px rgba(244, 63, 94, 0.6), inset 0 0 20px rgba(244, 63, 94, 0.2);
-        }
-
-        .neon-text-cyan {
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.6), 0 0 20px rgba(6, 182, 212, 0.3);
-        }
-        .neon-text-indigo {
-            text-shadow: 0 0 10px rgba(99, 102, 241, 0.6), 0 0 20px rgba(99, 102, 241, 0.3);
-        }
-        .neon-text-purple {
-            text-shadow: 0 0 10px rgba(168, 85, 247, 0.6), 0 0 20px rgba(168, 85, 247, 0.3);
-        }
-        .neon-text-teal {
-            text-shadow: 0 0 10px rgba(20, 184, 166, 0.6), 0 0 20px rgba(20, 184, 166, 0.3);
-        }
-        .neon-text-amber {
-            text-shadow: 0 0 10px rgba(245, 158, 11, 0.6), 0 0 20px rgba(245, 158, 11, 0.3);
-        }
-        .neon-text-rose {
-            text-shadow: 0 0 10px rgba(244, 63, 94, 0.6), 0 0 20px rgba(244, 63, 94, 0.3);
-        }
-
-        /* Three.js Canvas Styling */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* Spotlight Overlay Layer */
-        #spotlight-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            pointer-events: none;
-            background: radial-gradient(600px circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh), rgba(14, 165, 233, 0.18), rgba(15, 23, 42, 0.85) 70%, rgba(2, 6, 23, 0.98) 100%);
-        }
-
-        /* Enforce single-line non-wrapping points declaration across all viewports */
-        .points-badge {
-            white-space: nowrap !important;
-            flex-shrink: 0 !important;
-        }
-
-        /* Advanced Responsive Media Queries for Margins and Paddings */
-        @media (max-width: 640px) {
-            .responsive-section {
-                padding-top: 2.5rem !important;
-                padding-bottom: 2.5rem !important;
-                padding-left: 0.75rem !important;
-                padding-right: 0.75rem !important;
-            }
-            .responsive-header {
-                padding: 0.875rem 1rem !important;
-                gap: 0.5rem !important;
-            }
-            .responsive-content {
-                padding: 1rem !important;
-            }
-            .responsive-title {
-                font-size: 0.95rem !important;
-                line-height: 1.35 !important;
-            }
-        }
-
-        @media (min-width: 641px) and (max-width: 1024px) {
-            .responsive-section {
-                padding-top: 3.5rem !important;
-                padding-bottom: 3.5rem !important;
-                padding-left: 1.5rem !important;
-                padding-right: 1.5rem !important;
-            }
-            .responsive-header {
-                padding: 1.25rem 1.5rem !important;
-            }
-            .responsive-content {
-                padding: 1.75rem !important;
-            }
-        }
-
-        /* Responsive footer media query adjustments */
-        @media (max-width: 768px) {
-            .footer-content-wrapper {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
-            .footer-social-icons {
-                justify-content: center;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="test.css">
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans relative overflow-x-hidden">
+<body class="bg-slate-950 text-slate-100 font-sans relative overflow-x-hidden antialiased selection:bg-cyan-500 selection:text-slate-950">
 
     <!-- Three.js 3D Universe Canvas -->
-    <canvas id="bg-canvas"></canvas>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
     <!-- Cursor Spotlight Overlay Effect -->
-    <div id="spotlight-overlay"></div>
+    <div id="spotlight-overlay" aria-hidden="true"></div>
 
     <!-- Navigation Bar -->
-    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-900/80 backdrop-blur-md border-b border-cyan-500/20 neon-glow-cyan">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <nav id="navbar" role="navigation" aria-label="Main Navigation" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-slate-900/80 backdrop-blur-md border-b border-cyan-500/20 neon-glow-cyan">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 responsive-nav h-20 flex items-center justify-between">
             <!-- Brand Section -->
-            <a href="index.html" class="text-xl font-bold tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors neon-text-cyan">
+            <a href="index.html" class="text-lg sm:text-xl font-bold tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors neon-text-cyan focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded-lg">
                 For the Newbie
             </a>
 
             <!-- Menu Bar / Dropdown Trigger -->
             <div class="relative">
-                <button id="menu-btn" class="flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-cyan-300 font-medium transition-all border border-cyan-500/40 neon-glow-cyan w-40 justify-center cursor-pointer">
+                <button id="menu-btn" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-menu" aria-label="Toggle navigation menu" class="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-cyan-300 font-medium transition-all border border-cyan-500/40 neon-glow-cyan w-32 sm:w-40 justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400">
                     <span>Menu</span>
-                    <svg class="w-4 h-4 transition-transform duration-300" id="menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 transition-transform duration-300" id="menu-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
 
                 <!-- Dropdown Menu -->
-                <div id="dropdown-menu" class="absolute right-0 mt-3 w-56 bg-slate-900/95 backdrop-blur-xl border border-cyan-500/40 rounded-2xl shadow-2xl p-2 hidden opacity-0 transform -translate-y-2 transition-all duration-300 neon-glow-cyan">
-                    <a href="index.html" class="flex items-center px-4 py-3 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-300 text-slate-300 transition-colors font-medium">
+                <div id="dropdown-menu" role="menu" class="absolute right-0 mt-3 w-52 sm:w-56 bg-slate-900/95 backdrop-blur-xl border border-cyan-500/40 rounded-2xl shadow-2xl p-2 hidden opacity-0 transform -translate-y-2 transition-all duration-300 neon-glow-cyan">
+                    <a href="index.html" role="menuitem" class="flex items-center px-4 py-3 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-300 text-slate-300 transition-colors font-medium focus:outline-none focus:bg-cyan-500/20">
                         Home page
                     </a>
-                    <a href="https://rayaantasnim.github.io/Olympiad-Edge-Join/" target="_blank" rel="noopener noreferrer" class="flex items-center px-4 py-3 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-300 text-slate-300 transition-colors font-medium">
+                    <a href="https://rayaantasnim.github.io/Olympiad-Edge-Join/" target="_blank" rel="noopener noreferrer" role="menuitem" class="flex items-center px-4 py-3 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-300 text-slate-300 transition-colors font-medium focus:outline-none focus:bg-cyan-500/20">
                         Guideline Arena
                     </a>
                 </div>
@@ -204,100 +62,100 @@
     </nav>
 
     <!-- Main Content Wrapper -->
-    <main class="relative z-10 pt-20">
+    <main class="relative z-10 pt-16 sm:pt-20">
 
-        <!-- Section 1: Hero Banner / Intro Section (Full Screen Width) -->
-        <section class="min-h-[70vh] w-full flex items-center justify-center py-20 px-6 bg-cyan-950/20 backdrop-blur-sm border-b border-cyan-500/30 gsap-section responsive-section">
+        <!-- Section 1: Hero Banner / Intro Section -->
+        <section class="min-h-[60vh] sm:min-h-[70vh] w-full flex items-center justify-center py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-cyan-950/30 via-slate-950/40 to-indigo-950/20 backdrop-blur-sm border-b border-cyan-500/30 gsap-section responsive-section">
             <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
-                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent neon-text-cyan">
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 sm:mb-6 bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent neon-text-cyan leading-tight">
                     The Ultimate Programming Assessment & Architectural Legacy
                 </h1>
-                <p class="text-lg md:text-xl text-cyan-100/90 text-justify leading-relaxed mb-8 p-6 bg-cyan-900/30 rounded-2xl border border-cyan-500/40 neon-glow-cyan">
+                <p class="text-sm sm:text-lg md:text-xl text-cyan-100/90 text-left sm:text-justify leading-relaxed mb-6 sm:mb-8 p-4 sm:p-6 radiant-grad-cyan-indigo rounded-2xl border border-cyan-500/40 neon-glow-cyan">
                     Welcome, future developer! If you are just starting out with coding, think of this page as your friendly guide. We test foundational web architectures, modern software paradigms, and critical engineering choices designed to help novice coders step into the world of professional software development with ease.
                 </p>
                 <div class="rounded-2xl overflow-hidden border border-cyan-500/40 shadow-2xl w-full max-w-3xl neon-glow-cyan transition-transform duration-500 hover:scale-[1.01]">
-                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80" alt="Legacy coding assessment workspace" class="w-full h-72 object-cover">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80" alt="Legacy coding assessment workspace with laptops and code" class="w-full h-48 sm:h-72 object-cover">
                 </div>
             </div>
         </section>
 
-        <!-- Section 2: Question 01 (Full Screen Width) -->
-        <section class="py-16 px-6 w-full bg-indigo-950/20 backdrop-blur-sm border-b border-indigo-500/30 gsap-section responsive-section">
+        <!-- Section 2: Question 01 -->
+        <section class="py-10 sm:py-16 px-3 sm:px-6 w-full radiant-grad-indigo-purple backdrop-blur-sm border-b border-indigo-500/30 gsap-section responsive-section">
             <div class="max-w-6xl mx-auto">
-                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-indigo-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-indigo responsive-header" data-target="ans-1">
-                    <h2 class="text-xl md:text-2xl font-bold text-indigo-300 text-left neon-text-indigo responsive-title">
-                        1. What do you mean by Hybrid website?
+                <button type="button" aria-expanded="false" aria-controls="ans-1" class="w-full flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-4 sm:p-6 md:p-8 rounded-2xl border border-indigo-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-indigo responsive-header text-left focus:outline-none focus:ring-2 focus:ring-indigo-400" data-target="ans-1">
+                    <h2 class="text-base sm:text-xl md:text-2xl font-bold text-indigo-300 neon-text-indigo responsive-title pr-2">
+                        1. Comprehensive Definition: What precisely defines a Hybrid Website in modern architecture?
                     </h2>
-                    <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
-                        <span class="px-3 md:px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 font-bold text-xs md:text-sm border border-indigo-500/50 neon-glow-indigo points-badge">2 points</span>
-                        <svg class="w-6 h-6 text-indigo-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-1.5 sm:gap-2 md:gap-4 flex-shrink-0">
+                        <span class="px-2.5 sm:px-4 py-1 rounded-full bg-indigo-500/20 text-indigo-300 font-bold text-xs sm:text-sm border border-indigo-500/50 neon-glow-indigo points-badge">2 points</span>
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
-                </div>
-                <div id="ans-1" class="hidden mt-4 p-6 md:p-10 bg-indigo-950/90 rounded-2xl border border-indigo-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-indigo responsive-content">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                </button>
+                <div id="ans-1" role="region" aria-label="Answer 1" class="hidden mt-3 sm:mt-4 p-4 sm:p-6 md:p-10 radiant-grad-indigo-purple rounded-2xl border border-indigo-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-indigo responsive-content">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
                         <div>
-                            <p class="mb-4 text-justify text-base md:text-lg">
+                            <p class="mb-4 text-left sm:text-justify text-sm sm:text-base md:text-lg">
                                 <strong class="text-indigo-300">Architectural Overview:</strong> A hybrid website integrates both Server-Side Rendering (SSR) and Client-Side Rendering (CSR), or combines static site generation with dynamic API microservices. It merges the rapid time-to-first-byte and SEO advantages of <span class="text-cyan-400 font-semibold">static architecture</span> with the real-time data mutability of <span class="text-indigo-400 font-semibold">dynamic web applications</span>.
                             </p>
-                            <ul class="space-y-3">
-                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-indigo-500/20">
-                                    <i class="fas fa-bolt text-indigo-400 mt-1"></i>
+                            <ul class="space-y-2.5 sm:space-y-3 text-xs sm:text-sm md:text-base">
+                                <li class="flex items-start gap-2.5 sm:gap-3 bg-slate-900/80 p-2.5 sm:p-3 rounded-xl border border-indigo-500/20">
+                                    <i class="fas fa-bolt text-indigo-400 mt-1" aria-hidden="true"></i>
                                     <span><strong>Pre-rendered Delivery:</strong> Initial HTML payloads are generated at build time or on-demand via edge servers, maximizing performance metrics.</span>
                                 </li>
-                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-indigo-500/20">
-                                    <i class="fas fa-sync text-indigo-400 mt-1"></i>
+                                <li class="flex items-start gap-2.5 sm:gap-3 bg-slate-900/80 p-2.5 sm:p-3 rounded-xl border border-indigo-500/20">
+                                    <i class="fas fa-sync text-indigo-400 mt-1" aria-hidden="true"></i>
                                     <span><strong>Asynchronous Hydration:</strong> JavaScript bundles hydrate the DOM post-load, enabling seamless state management and API synchronization without full-page reloads.</span>
                                 </li>
-                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-indigo-500/20">
-                                    <i class="fas fa-network-wired text-indigo-400 mt-1"></i>
+                                <li class="flex items-start gap-3 bg-slate-900/80 p-2.5 sm:p-3 rounded-xl border border-indigo-500/20">
+                                    <i class="fas fa-network-wired text-indigo-400 mt-1" aria-hidden="true"></i>
                                     <span><strong>Optimized Caching:</strong> Static assets are cached globally via Content Delivery Networks (CDNs), while dynamic queries resolve through secure backend gateways.</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="rounded-xl overflow-hidden border border-indigo-500/40 neon-glow-indigo">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Hybrid website web architecture concept" class="w-full h-64 object-cover">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Hybrid website web architecture concept diagram" class="w-full h-48 sm:h-64 object-cover">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 3: Question 02 (Full Screen Width) -->
-        <section class="py-16 px-6 w-full bg-purple-950/20 backdrop-blur-sm border-b border-purple-500/30 gsap-section responsive-section">
+        <!-- Section 3: Question 02 -->
+        <section class="py-10 sm:py-16 px-3 sm:px-6 w-full radiant-grad-purple-pink backdrop-blur-sm border-b border-purple-500/30 gsap-section responsive-section">
             <div class="max-w-6xl mx-auto">
-                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-purple-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-purple responsive-header" data-target="ans-2">
-                    <h2 class="text-xl md:text-2xl font-bold text-purple-300 text-left neon-text-purple responsive-title">
-                        2. Why SaaS is the greatest business model in this era of technology?
+                <button type="button" aria-expanded="false" aria-controls="ans-2" class="w-full flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-4 sm:p-6 md:p-8 rounded-2xl border border-purple-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-purple responsive-header text-left focus:outline-none focus:ring-2 focus:ring-purple-400" data-target="ans-2">
+                    <h2 class="text-base sm:text-xl md:text-2xl font-bold text-purple-300 neon-text-purple responsive-title pr-2">
+                        2. Strategic Analysis: What makes Software as a Service (SaaS) the dominant business model in modern technology?
                     </h2>
-                    <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
-                        <span class="px-3 md:px-4 py-1.5 rounded-full bg-purple-500/20 text-purple-300 font-bold text-xs md:text-sm border border-purple-500/50 neon-glow-purple points-badge">4 points</span>
-                        <svg class="w-6 h-6 text-purple-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-1.5 sm:gap-2 md:gap-4 flex-shrink-0">
+                        <span class="px-2.5 sm:px-4 py-1 rounded-full bg-purple-500/20 text-purple-300 font-bold text-xs sm:text-sm border border-purple-500/50 neon-glow-purple points-badge">4 points</span>
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-purple-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
-                </div>
-                <div id="ans-2" class="hidden mt-4 p-6 md:p-10 bg-purple-950/90 rounded-2xl border border-purple-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-purple responsive-content">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                </button>
+                <div id="ans-2" role="region" aria-label="Answer 2" class="hidden mt-3 sm:mt-4 p-4 sm:p-6 md:p-10 radiant-grad-purple-pink rounded-2xl border border-purple-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-purple responsive-content">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
                         <div class="order-2 md:order-1 rounded-xl overflow-hidden border border-purple-500/40 neon-glow-purple">
-                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SaaS cloud subscription dashboard analytics" class="w-full h-64 object-cover">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SaaS cloud subscription dashboard analytics" class="w-full h-48 sm:h-64 object-cover">
                         </div>
                         <div class="order-1 md:order-2">
-                            <p class="mb-4 text-justify text-base md:text-lg">
+                            <p class="mb-4 text-left sm:text-justify text-sm sm:text-base md:text-lg">
                                 <strong class="text-purple-300">Software as a Service (SaaS) Mechanics:</strong> SaaS is a software distribution model where applications are hosted centrally by a vendor and licensed on a recurring subscription basis, delivered via the cloud over HTTP/HTTPS protocols.
                             </p>
-                            <ul class="space-y-3">
-                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-purple-500/20">
-                                    <i class="fas fa-coins text-purple-400 mt-1"></i>
+                            <ul class="space-y-2.5 sm:space-y-3 text-xs sm:text-sm md:text-base">
+                                <li class="flex items-start gap-2.5 sm:gap-3 bg-slate-900/80 p-2.5 sm:p-3 rounded-xl border border-purple-500/20">
+                                    <i class="fas fa-coins text-purple-400 mt-1" aria-hidden="true"></i>
                                     <span><strong>Recurring Revenue (MRR/ARR):</strong> Generates predictable cash flow streams, lowering customer acquisition cost (CAC) payback periods and increasing business valuation multiples.</span>
                                 </li>
-                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-purple-500/20">
-                                    <i class="fas fa-cloud-upload-alt text-purple-400 mt-1"></i>
+                                <li class="flex items-start gap-2.5 sm:gap-3 bg-slate-900/80 p-2.5 sm:p-3 rounded-xl border border-purple-500/20">
+                                    <i class="fas fa-cloud-upload-alt text-purple-400 mt-1" aria-hidden="true"></i>
                                     <span><strong>Centralized Deployment:</strong> Patches, database migrations, and security updates are deployed once to the production server environment, instantly provisioning updates for all tenants globally.</span>
                                 </li>
-                                <li class="flex items-start gap-3 bg-slate-900/80 p-3 rounded-xl border border-purple-500/20">
-                                    <i class="fas fa-shield-alt text-purple-400 mt-1"></i>
+                                <li class="flex items-start gap-2.5 sm:gap-3 bg-slate-900/80 p-2.5 sm:p-3 rounded-xl border border-purple-500/20">
+                                    <i class="fas fa-shield-alt text-purple-400 mt-1" aria-hidden="true"></i>
                                     <span><strong>Multi-Tenant Scalability:</strong> Leverages shared infrastructure and database partitioning to scale resource allocation dynamically based on user tier utilization.</span>
                                 </li>
                             </ul>
@@ -307,100 +165,100 @@
             </div>
         </section>
 
-        <!-- Section 4: Question 03 (Full Screen Width) -->
-        <section class="py-16 px-6 w-full bg-amber-950/20 backdrop-blur-sm border-b border-amber-500/30 gsap-section responsive-section">
+        <!-- Section 4: Question 03 -->
+        <section class="py-10 sm:py-16 px-3 sm:px-6 w-full radiant-grad-amber-rose backdrop-blur-sm border-b border-amber-500/30 gsap-section responsive-section">
             <div class="max-w-6xl mx-auto">
-                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-amber-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-amber responsive-header" data-target="ans-3">
-                    <h2 class="text-xl md:text-2xl font-bold text-amber-300 text-left neon-text-amber responsive-title">
-                        3. What kind of page was the one you viewed earlier? Describe it.
+                <button type="button" aria-expanded="false" aria-controls="ans-3" class="w-full flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-4 sm:p-6 md:p-8 rounded-2xl border border-amber-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-amber responsive-header text-left focus:outline-none focus:ring-2 focus:ring-amber-400" data-target="ans-3">
+                    <h2 class="text-base sm:text-xl md:text-2xl font-bold text-amber-300 neon-text-amber responsive-title pr-2">
+                        3. Page Architecture Evaluation: How would you classify and describe the technical composition of the page viewed earlier?
                     </h2>
-                    <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
-                        <span class="px-3 md:px-4 py-1.5 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs md:text-sm border border-amber-500/50 neon-glow-amber points-badge">8 points</span>
-                        <svg class="w-6 h-6 text-amber-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-1.5 sm:gap-2 md:gap-4 flex-shrink-0">
+                        <span class="px-2.5 sm:px-4 py-1 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs sm:text-sm border border-amber-500/50 neon-glow-amber points-badge">8 points</span>
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-amber-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
-                </div>
-                <div id="ans-3" class="hidden mt-4 p-6 md:p-10 bg-amber-950/90 rounded-2xl border border-amber-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-amber responsive-content">
-                    <div class="space-y-6">
-                        <p class="text-justify text-base md:text-lg">
+                </button>
+                <div id="ans-3" role="region" aria-label="Answer 3" class="hidden mt-3 sm:mt-4 p-4 sm:p-6 md:p-10 radiant-grad-amber-rose rounded-2xl border border-amber-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-amber responsive-content">
+                    <div class="space-y-4 sm:space-y-6">
+                        <p class="text-left sm:text-justify text-sm sm:text-base md:text-lg">
                             <strong class="text-amber-300">Structural Anatomy of the Landing Page:</strong> The previous page is mainly a static page. The preceding page functions as a client-rendered single-page interface relying on optimized HTML5, utility-first CSS styling via Tailwind CSS, and asynchronous JavaScript controllers for interactive dropdown states and viewport animations.
                         </p>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="bg-slate-900/80 p-5 rounded-xl border border-amber-500/30 neon-glow-amber">
-                                <h3 class="text-amber-300 font-bold mb-2 flex items-center gap-2">
-                                    <i class="fas fa-code"></i> Markup Efficiency
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                            <div class="bg-slate-900/80 p-4 sm:p-5 rounded-xl border border-amber-500/30 neon-glow-amber">
+                                <h3 class="text-amber-300 font-bold mb-2 flex items-center gap-2 text-sm sm:text-base">
+                                    <i class="fas fa-code" aria-hidden="true"></i> Markup Efficiency
                                 </h3>
-                                <p class="text-sm text-slate-400">Employs semantic HTML5 tags and atomic CSS classes to maintain a minimal DOM tree footprint and optimal paint performance.</p>
+                                <p class="text-xs sm:text-sm text-slate-400">Employs semantic HTML5 tags and atomic CSS classes to maintain a minimal DOM tree footprint and optimal paint performance.</p>
                             </div>
-                            <div class="bg-slate-900/80 p-5 rounded-xl border border-amber-500/30 neon-glow-amber">
-                                <h3 class="text-amber-300 font-bold mb-2 flex items-center gap-2">
-                                    <i class="fas fa-magic"></i> Script Execution
+                            <div class="bg-slate-900/80 p-4 sm:p-5 rounded-xl border border-amber-500/30 neon-glow-amber">
+                                <h3 class="text-amber-300 font-bold mb-2 flex items-center gap-2 text-sm sm:text-base">
+                                    <i class="fas fa-magic" aria-hidden="true"></i> Script Execution
                                 </h3>
-                                <p class="text-sm text-slate-400">Integrates WebGL contexts through Three.js and scroll orchestration via GSAP ScrollTrigger for hardware-accelerated visual rendering.</p>
+                                <p class="text-xs sm:text-sm text-slate-400">Integrates WebGL contexts through Three.js and scroll orchestration via GSAP ScrollTrigger for hardware-accelerated visual rendering.</p>
                             </div>
-                            <div class="bg-slate-900/80 p-5 rounded-xl border border-amber-500/30 neon-glow-amber">
-                                <h3 class="text-amber-300 font-bold mb-2 flex items-center gap-2">
-                                    <i class="fas fa-graduation-cap"></i> Pedagogical Design
+                            <div class="bg-slate-900/80 p-4 sm:p-5 rounded-xl border border-amber-500/30 neon-glow-amber">
+                                <h3 class="text-amber-300 font-bold mb-2 flex items-center gap-2 text-sm sm:text-base">
+                                    <i class="fas fa-graduation-cap" aria-hidden="true"></i> Pedagogical Design
                                 </h3>
-                                <p class="text-sm text-slate-400">Structures complex technical concepts into modular DOM sections optimized for cognitive load distribution and analytical review.</p>
+                                <p class="text-xs sm:text-sm text-slate-400">Structures complex technical concepts into modular DOM sections optimized for cognitive load distribution and analytical review.</p>
                             </div>
                         </div>
                         <div class="rounded-xl overflow-hidden border border-amber-500/40 neon-glow-amber">
-                            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80" alt="Code editor screen showing clean beginner programming layout" class="w-full h-56 object-cover">
+                            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80" alt="Code editor screen showing clean beginner programming layout" class="w-full h-44 sm:h-56 object-cover">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 5: Question 04 (Full Screen Width) -->
-        <section class="py-16 px-6 w-full bg-teal-950/20 backdrop-blur-sm border-b border-teal-500/30 gsap-section responsive-section">
+        <!-- Section 5: Question 04 -->
+        <section class="py-10 sm:py-16 px-3 sm:px-6 w-full radiant-grad-teal-cyan backdrop-blur-sm border-b border-teal-500/30 gsap-section responsive-section">
             <div class="max-w-6xl mx-auto">
-                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-teal-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-teal responsive-header" data-target="ans-4">
-                    <h2 class="text-xl md:text-2xl font-bold text-teal-300 text-left neon-text-teal responsive-title">
-                        4. In your opinion, which type of website is better—static or dynamic?
+                <button type="button" aria-expanded="false" aria-controls="ans-4" class="w-full flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-4 sm:p-6 md:p-8 rounded-2xl border border-teal-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-teal responsive-header text-left focus:outline-none focus:ring-2 focus:ring-teal-400" data-target="ans-4">
+                    <h2 class="text-base sm:text-xl md:text-2xl font-bold text-teal-300 neon-text-teal responsive-title pr-2">
+                        4. Architectural Comparison: In engineering practice, which architecture proves superior—Static or Dynamic?
                     </h2>
-                    <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
-                        <span class="px-3 md:px-4 py-1.5 rounded-full bg-teal-500/20 text-teal-300 font-bold text-xs md:text-sm border border-teal-500/50 neon-glow-teal points-badge">10 points</span>
-                        <svg class="w-6 h-6 text-teal-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-1.5 sm:gap-2 md:gap-4 flex-shrink-0">
+                        <span class="px-2.5 sm:px-4 py-1 rounded-full bg-teal-500/20 text-teal-300 font-bold text-xs sm:text-sm border border-teal-500/50 neon-glow-teal points-badge">10 points</span>
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-teal-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
-                </div>
-                <div id="ans-4" class="hidden mt-4 p-6 md:p-10 bg-teal-950/90 rounded-2xl border border-teal-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-teal responsive-content">
-                    <p class="mb-6 text-center text-xl font-bold text-teal-300 neon-text-teal">
+                </button>
+                <div id="ans-4" role="region" aria-label="Answer 4" class="hidden mt-3 sm:mt-4 p-4 sm:p-6 md:p-10 radiant-grad-teal-cyan rounded-2xl border border-teal-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-teal responsive-content">
+                    <p class="mb-4 sm:mb-6 text-center text-base sm:text-xl font-bold text-teal-300 neon-text-teal">
                         "Architectural selection is strictly dictated by functional requirements, consistency models, and scaling constraints."
                     </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div class="p-6 bg-slate-900/85 rounded-xl border border-teal-500/30 shadow-md neon-glow-teal">
-                            <h3 class="text-lg font-bold text-cyan-400 mb-3 flex items-center gap-2">
-                                <i class="fas fa-file-code"></i> Static Architecture Paradigms:
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
+                        <div class="p-4 sm:p-6 bg-slate-900/85 rounded-xl border border-teal-500/30 shadow-md neon-glow-teal">
+                            <h3 class="text-base sm:text-lg font-bold text-cyan-400 mb-2 sm:mb-3 flex items-center gap-2">
+                                <i class="fas fa-file-code" aria-hidden="true"></i> Static Architecture Paradigms:
                             </h3>
-                            <p class="text-sm text-slate-300 text-justify leading-relaxed mb-4">
+                            <p class="text-xs sm:text-sm text-slate-300 text-left sm:text-justify leading-relaxed mb-3 sm:mb-4">
                                 Optimal for content-driven systems, documentation repositories, and promotional portals where data mutability is infrequent. Eliminates database latency, reduces attack vectors, and allows edge caching for zero-latency responses.
                             </p>
-                            <ul class="space-y-2 text-xs text-slate-400 mb-4">
+                            <ul class="space-y-1.5 sm:space-y-2 text-xs text-slate-400 mb-3 sm:mb-4">
                                 <li>• Zero server-side compute overhead per request.</li>
                                 <li>• Immutability ensures high fault tolerance and security.</li>
                             </ul>
                             <div class="rounded-lg overflow-hidden border border-teal-500/20">
-                                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Clean static coding workspace setup" class="w-full h-36 object-cover">
+                                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Clean static coding workspace setup" class="w-full h-32 sm:h-36 object-cover">
                             </div>
                         </div>
-                        <div class="p-6 bg-slate-900/85 rounded-xl border border-teal-500/30 shadow-md neon-glow-teal">
-                            <h3 class="text-lg font-bold text-indigo-400 mb-3 flex items-center gap-2">
-                                <i class="fas fa-database"></i> Dynamic Architecture Paradigms:
+                        <div class="p-4 sm:p-6 bg-slate-900/85 rounded-xl border border-teal-500/30 shadow-md neon-glow-teal">
+                            <h3 class="text-base sm:text-lg font-bold text-indigo-400 mb-2 sm:mb-3 flex items-center gap-2">
+                                <i class="fas fa-database" aria-hidden="true"></i> Dynamic Architecture Paradigms:
                             </h3>
-                            <p class="text-sm text-slate-300 text-justify leading-relaxed mb-4">
+                            <p class="text-xs sm:text-sm text-slate-300 text-left sm:text-justify leading-relaxed mb-3 sm:mb-4">
                                 Indispensable for transactional applications, real-time collaboration tools, and authenticated user portals requiring transactional ACID compliance, continuous data ingestion, and personalized state persistence.
                             </p>
-                            <ul class="space-y-2 text-xs text-slate-400 mb-4">
+                            <ul class="space-y-1.5 sm:space-y-2 text-xs text-slate-400 mb-3 sm:mb-4">
                                 <li>• Real-time data mutation via relational or NoSQL stores.</li>
                                 <li>• Stateful session handling and role-based access control.</li>
                             </ul>
                             <div class="rounded-lg overflow-hidden border border-teal-500/20">
-                                <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=600&q=80" alt="Dynamic database server code screen" class="w-full h-36 object-cover">
+                                <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=600&q=80" alt="Dynamic database server code screen" class="w-full h-32 sm:h-36 object-cover">
                             </div>
                         </div>
                     </div>
@@ -408,49 +266,49 @@
             </div>
         </section>
 
-        <!-- Section 6: Question 05 (Full Screen Width) -->
-        <section class="py-16 px-6 w-full bg-rose-950/20 backdrop-blur-sm border-b border-rose-500/30 gsap-section responsive-section">
+        <!-- Section 6: Question 05 -->
+        <section class="py-10 sm:py-16 px-3 sm:px-6 w-full radiant-grad-rose-purple backdrop-blur-sm border-b border-rose-500/30 gsap-section responsive-section">
             <div class="max-w-6xl mx-auto">
-                <div class="flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-6 md:p-8 rounded-2xl border border-rose-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-rose responsive-header" data-target="ans-5">
-                    <h2 class="text-xl md:text-2xl font-bold text-rose-300 text-left neon-text-rose responsive-title">
-                        5. Which features would need to be added to make it possible to convert the previous page into a hybrid one?
+                <button type="button" aria-expanded="false" aria-controls="ans-5" class="w-full flex items-center justify-between cursor-pointer bg-slate-900/90 hover:bg-slate-800 p-4 sm:p-6 md:p-8 rounded-2xl border border-rose-500/40 transition-all shadow-xl q-dropdown-trigger neon-glow-rose responsive-header text-left focus:outline-none focus:ring-2 focus:ring-rose-400" data-target="ans-5">
+                    <h2 class="text-base sm:text-xl md:text-2xl font-bold text-rose-300 neon-text-rose responsive-title pr-2">
+                        5. System Integration Strategy: What technical capabilities and backend services are required to convert the previous static page into a hybrid architecture?
                     </h2>
-                    <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
-                        <span class="px-3 md:px-4 py-1.5 rounded-full bg-rose-500/20 text-rose-300 font-bold text-xs md:text-sm border border-rose-500/50 neon-glow-rose points-badge">12 points</span>
-                        <svg class="w-6 h-6 text-rose-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="flex items-center gap-1.5 sm:gap-2 md:gap-4 flex-shrink-0">
+                        <span class="px-2.5 sm:px-4 py-1 rounded-full bg-rose-500/20 text-rose-300 font-bold text-xs sm:text-sm border border-rose-500/50 neon-glow-rose points-badge">12 points</span>
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-rose-400 transition-transform duration-300 q-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </div>
-                </div>
-                <div id="ans-5" class="hidden mt-4 p-6 md:p-10 bg-rose-950/90 rounded-2xl border border-rose-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-rose responsive-content">
-                    <div class="space-y-6">
-                        <p class="text-justify text-base md:text-lg">
+                </button>
+                <div id="ans-5" role="region" aria-label="Answer 5" class="hidden mt-3 sm:mt-4 p-4 sm:p-6 md:p-10 radiant-grad-rose-purple rounded-2xl border border-rose-500/40 text-slate-300 leading-relaxed shadow-inner neon-glow-rose responsive-content">
+                    <div class="space-y-4 sm:space-y-6">
+                        <p class="text-left sm:text-justify text-sm sm:text-base md:text-lg">
                             <strong class="text-rose-300">Transitioning to Hybrid Architecture:</strong> Upgrading a purely static client-side document into a comprehensive hybrid application requires integrating server-side infrastructure layers, state management systems, and secure data pipelines:
                         </p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <ul class="space-y-3">
-                                <li class="flex items-start gap-3 bg-slate-900/85 p-4 rounded-xl border border-rose-500/30 neon-glow-rose">
-                                    <i class="fas fa-server text-rose-400 mt-1"></i>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                            <ul class="space-y-2.5 sm:space-y-3 text-xs sm:text-sm md:text-base">
+                                <li class="flex items-start gap-2.5 sm:gap-3 bg-slate-900/85 p-3 sm:p-4 rounded-xl border border-rose-500/30 neon-glow-rose">
+                                    <i class="fas fa-server text-rose-400 mt-1" aria-hidden="true"></i>
                                     <div>
                                         <strong class="text-rose-300">Server-Side Framework Runtime:</strong> Integrate a framework like Next.js or Nuxt to execute server-side rendering (SSR) and incremental static regeneration (ISR).
                                     </div>
                                 </li>
-                                <li class="flex items-start gap-3 bg-slate-900/85 p-4 rounded-xl border border-rose-500/30 neon-glow-rose">
-                                    <i class="fas fa-user-lock text-rose-400 mt-1"></i>
+                                <li class="flex items-start gap-2.5 sm:gap-3 bg-slate-900/85 p-3 sm:p-4 rounded-xl border border-rose-500/30 neon-glow-rose">
+                                    <i class="fas fa-user-lock text-rose-400 mt-1" aria-hidden="true"></i>
                                     <div>
                                         <strong class="text-rose-300">Authentication Middleware:</strong> Implement JWT or OAuth-based session validation to manage user roles, secure API routes, and protect sensitive assessment endpoints.
                                     </div>
                                 </li>
                             </ul>
-                            <ul class="space-y-3">
-                                <li class="flex items-start gap-3 bg-slate-900/85 p-4 rounded-xl border border-rose-500/30 neon-glow-rose">
-                                    <i class="fas fa-database text-rose-400 mt-1"></i>
+                            <ul class="space-y-2.5 sm:space-y-3 text-xs sm:text-sm md:text-base">
+                                <li class="flex items-start gap-2.5 sm:gap-3 bg-slate-900/85 p-3 sm:p-4 rounded-xl border border-rose-500/30 neon-glow-rose">
+                                    <i class="fas fa-database text-rose-400 mt-1" aria-hidden="true"></i>
                                     <div>
                                         <strong class="text-rose-300">Relational Database & ORM:</strong> Provision a PostgreSQL database interfaced via an ORM (like Prisma) to persist user assessment scores, audit logs, and profile states.
                                     </div>
                                 </li>
-                                <li class="flex items-start gap-3 bg-slate-900/85 p-4 rounded-xl border border-rose-500/30 neon-glow-rose">
-                                    <i class="fas fa-plug text-rose-400 mt-1"></i>
+                                <li class="flex items-start gap-2.5 sm:gap-3 bg-slate-900/85 p-3 sm:p-4 rounded-xl border border-rose-500/30 neon-glow-rose">
+                                    <i class="fas fa-plug text-rose-400 mt-1" aria-hidden="true"></i>
                                     <div>
                                         <strong class="text-rose-300">RESTful or GraphQL APIs:</strong> Construct backend API routes to handle asynchronous data payloads, enabling real-time telemetry and component re-hydration.
                                     </div>
@@ -458,46 +316,46 @@
                             </ul>
                         </div>
                         <div class="rounded-xl overflow-hidden border border-rose-500/40 neon-glow-rose mt-4">
-                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" alt="Cloud server infrastructure and hybrid architecture network" class="w-full h-52 object-cover">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" alt="Cloud server infrastructure and hybrid architecture network" class="w-full h-40 sm:h-52 object-cover">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Upgraded Professional Footer (Simplified & Responsive) -->
-        <footer class="relative z-10 bg-gradient-to-b from-slate-950 via-cyan-950/40 to-slate-950 text-slate-400 pt-16 pb-12 border-t border-cyan-500/20 overflow-hidden neon-glow-cyan responsive-section">
+        <!-- Upgraded Professional Footer -->
+        <footer role="contentinfo" class="relative z-10 bg-gradient-to-b from-slate-950 via-cyan-950/40 to-slate-950 text-slate-400 pt-12 sm:pt-16 pb-8 sm:pb-12 border-t border-cyan-500/20 overflow-hidden neon-glow-cyan responsive-section">
             <!-- Decorative Glow Elements -->
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
             <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
-            <div class="max-w-4xl mx-auto px-6 text-center space-y-8 mb-12">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-6 sm:space-y-8 mb-8 sm:mb-12">
                 <!-- Brand Title -->
-                <a href="index.html" class="inline-block text-2xl font-extrabold tracking-wider bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent neon-text-cyan">
+                <a href="index.html" class="inline-block text-xl sm:text-2xl font-extrabold tracking-wider bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent neon-text-cyan">
                     For the Newbie
                 </a>
                 
                 <!-- Description Content -->
-                <p class="text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                <p class="text-xs sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
                     Empowering the next generation of visionary programmers with crystal-clear roadmaps, cutting-edge technical perspectives, and unmatched career mentorship in the age of AI.
                 </p>
 
                 <!-- Social Icons -->
-                <div class="flex items-center justify-center space-x-4 pt-2 footer-social-icons">
-                    <a href="https://github.com/rayaantasnim" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all shadow-lg group neon-glow-cyan">
-                        <i class="fab fa-github text-lg group-hover:scale-110 transition-transform"></i>
+                <div class="flex items-center justify-center space-x-3 sm:space-x-4 pt-2 footer-social-icons">
+                    <a href="https://github.com/rayaantasnim" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub Profile" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all shadow-lg group neon-glow-cyan focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                        <i class="fab fa-github text-base sm:text-lg group-hover:scale-110 transition-transform" aria-hidden="true"></i>
                     </a>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all shadow-lg group neon-glow-cyan">
-                        <i class="fab fa-linkedin-in text-lg group-hover:scale-110 transition-transform"></i>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn Profile" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all shadow-lg group neon-glow-cyan focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                        <i class="fab fa-linkedin-in text-base sm:text-lg group-hover:scale-110 transition-transform" aria-hidden="true"></i>
                     </a>
-                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="w-11 h-11 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all shadow-lg group neon-glow-cyan">
-                        <i class="fab fa-twitter text-lg group-hover:scale-110 transition-transform"></i>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Visit Twitter Profile" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all shadow-lg group neon-glow-cyan focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                        <i class="fab fa-twitter text-base sm:text-lg group-hover:scale-110 transition-transform" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
 
             <!-- Bottom Sub-footer / Copyright -->
-            <div class="max-w-7xl mx-auto px-6 pt-8 border-t border-slate-900 text-center">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 border-t border-slate-900 text-center">
                 <p class="text-xs text-slate-500">
                     &copy; 2026 For the Newbie. Authored with precision by <span class="text-cyan-400 font-medium">Rayaan Tasnim</span>. All rights reserved.
                 </p>
@@ -507,224 +365,6 @@
     </main>
 
     <!-- JavaScript Integration (Three.js, GSAP, Confetti, and UI Logic) -->
-    <script>
-        // Spotlight effect tracking mouse coordinates
-        window.addEventListener('mousemove', (e) => {
-            document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
-            document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
-        });
-
-        // 1. Three.js 3D Universe Background (Moving Stars & Falling Stars)
-        const canvas = document.getElementById('bg-canvas');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-        
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-        // Create Starfield Particles
-        const starsGeometry = new THREE.BufferGeometry();
-        const starsCount = 2000;
-        const starPositions = new Float32Array(starsCount * 3);
-
-        for(let i = 0; i < starsCount * 3; i++) {
-            starPositions[i] = (Math.random() - 0.5) * 2000;
-        }
-
-        starsGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-
-        // Create glowing star material
-        const starsMaterial = new THREE.PointsMaterial({
-            color: 0x06b6d4,
-            size: 2,
-            transparent: true,
-            opacity: 0.8,
-            blending: THREE.AdditiveBlending
-        });
-
-        const starField = new THREE.Points(starsGeometry, starsMaterial);
-        scene.add(starField);
-
-        // Create Falling Stars / Shooting Stars
-        const shootingStarsCount = 20;
-        const shootingStarsGeometry = new THREE.BufferGeometry();
-        const shootingPositions = new Float32Array(shootingStarsCount * 3);
-        const shootingVelocities = [];
-
-        for(let i = 0; i < shootingStarsCount; i++) {
-            shootingPositions[i * 3] = (Math.random() - 0.5) * 1000;
-            shootingPositions[i * 3 + 1] = Math.random() * 500 + 200;
-            shootingPositions[i * 3 + 2] = (Math.random() - 0.5) * 1000;
-            
-            shootingVelocities.push({
-                x: (Math.random() - 0.5) * 2,
-                y: -(Math.random() * 5 + 3),
-                z: (Math.random() - 0.5) * 2
-            });
-        }
-
-        shootingStarsGeometry.setAttribute('position', new THREE.BufferAttribute(shootingPositions, 3));
-        const shootingMaterial = new THREE.PointsMaterial({
-            color: 0x6366f1,
-            size: 4,
-            transparent: true,
-            opacity: 0.9,
-            blending: THREE.AdditiveBlending
-        });
-
-        const shootingStars = new THREE.Points(shootingStarsGeometry, shootingMaterial);
-        scene.add(shootingStars);
-
-        camera.position.z = 400;
-
-        // Mouse interaction for 3D feel
-        let mouseX = 0;
-        let mouseY = 0;
-        let targetX = 0;
-        let targetY = 0;
-
-        window.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX - window.innerWidth / 2) * 0.2;
-            mouseY = (event.clientY - window.innerHeight / 2) * 0.2;
-        });
-
-        // Animation Loop
-        function animate() {
-            requestAnimationFrame(animate);
-
-            targetX += (mouseX - targetX) * 0.05;
-            targetY += (mouseY - targetY) * 0.05;
-
-            starField.rotation.y += 0.0005;
-            starField.rotation.x += 0.0002;
-
-            scene.rotation.y = targetX * 0.001;
-            scene.rotation.x = -targetY * 0.001;
-
-            // Animate shooting stars
-            const positions = shootingStarsGeometry.attributes.position.array;
-            for(let i = 0; i < shootingStarsCount; i++) {
-                positions[i * 3] += shootingVelocities[i].x;
-                positions[i * 3 + 1] += shootingVelocities[i].y;
-                positions[i * 3 + 2] += shootingVelocities[i].z;
-
-                // Reset shooting star when it goes too low
-                if(positions[i * 3 + 1] < -500) {
-                    positions[i * 3] = (Math.random() - 0.5) * 1000;
-                    positions[i * 3 + 1] = Math.random() * 500 + 200;
-                    positions[i * 3 + 2] = (Math.random() - 0.5) * 1000;
-                }
-            }
-            shootingStarsGeometry.attributes.position.needsUpdate = true;
-
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Window Resize Handler
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // 2. GSAP ScrollTrigger Animations for Sections
-        gsap.registerPlugin(ScrollTrigger);
-
-        gsap.utils.toArray('.gsap-section').forEach((section) => {
-            gsap.fromTo(section, 
-                { opacity: 0, y: 50 }, 
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: section,
-                        start: 'top 85%',
-                        toggleActions: 'play none none reverse'
-                    }
-                }
-            );
-        });
-
-        // 3. Navigation Bar Scroll Effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 40) {
-                navbar.classList.add('bg-slate-900/90', 'backdrop-blur-xl', 'shadow-2xl');
-            } else {
-                navbar.classList.remove('bg-slate-900/90', 'backdrop-blur-xl', 'shadow-2xl');
-            }
-        });
-
-        // Dropdown Toggle Logic for Navbar Menu
-        const menuBtn = document.getElementById('menu-btn');
-        const dropdownMenu = document.getElementById('dropdown-menu');
-        const menuArrow = document.getElementById('menu-arrow');
-        let isDropdownOpen = false;
-
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            isDropdownOpen = !isDropdownOpen;
-            if (isDropdownOpen) {
-                dropdownMenu.classList.remove('hidden');
-                setTimeout(() => {
-                    dropdownMenu.classList.remove('opacity-0', '-translate-y-2');
-                    menuArrow.classList.add('rotate-180');
-                }, 10);
-            } else {
-                dropdownMenu.classList.add('opacity-0', '-translate-y-2');
-                menuArrow.classList.remove('rotate-180');
-                setTimeout(() => {
-                    dropdownMenu.classList.add('hidden');
-                }, 300);
-            }
-        });
-
-        window.addEventListener('click', () => {
-            if (isDropdownOpen) {
-                isDropdownOpen = false;
-                dropdownMenu.classList.add('opacity-0', '-translate-y-2');
-                menuArrow.classList.remove('rotate-180');
-                setTimeout(() => {
-                    dropdownMenu.classList.add('hidden');
-                }, 300);
-            }
-        });
-
-        // Question Dropdown Accordion Logic & Confetti Trigger
-        const qTriggers = document.querySelectorAll('.q-dropdown-trigger');
-        qTriggers.forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
-                const targetId = trigger.getAttribute('data-target');
-                const targetAns = document.getElementById(targetId);
-                const arrow = trigger.querySelector('.q-arrow');
-
-                if (targetAns.classList.contains('hidden')) {
-                    targetAns.classList.remove('hidden');
-                    arrow.classList.add('rotate-180');
-
-                    // Fire Confetti effect at trigger coordinates on opening
-                    const rect = trigger.getBoundingClientRect();
-                    const x = (rect.left + rect.width / 2) / window.innerWidth;
-                    const y = (rect.top + rect.height / 2) / window.innerHeight;
-
-                    if (typeof confetti === 'function') {
-                        confetti({
-                            particleCount: 70,
-                            spread: 60,
-                            origin: { x: x, y: y },
-                            colors: ['#06b6d4', '#6366f1', '#a855f7', '#14b8a6', '#f59e0b', '#f43f5e']
-                        });
-                    }
-                } else {
-                    targetAns.classList.add('hidden');
-                    arrow.classList.remove('rotate-180');
-                }
-            });
-        });
-    </script>
+    <script src="test.js"></script>
 </body>
 </html>

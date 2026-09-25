@@ -1,0 +1,100 @@
+
+        /* Custom scrollbar and horizontal scroll hiding */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Responsive custom adjustments using media queries */
+        @media (max-width: 768px) {
+            .footer-content-wrapper {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+            .footer-social-icons {
+                justify-content: center;
+            }
+        }
+
+        /* 3D Perspective & Neon Glow Transformations */
+        .neon-box {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            box-shadow: 0 0 25px rgba(34, 211, 238, 0.25), inset 0 0 15px rgba(34, 211, 238, 0.15);
+            border: 1px solid rgba(34, 211, 238, 0.4);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .neon-box:hover {
+            transform: translateY(-5px) rotateX(2deg) rotateY(-2deg);
+            box-shadow: 0 0 45px rgba(34, 211, 238, 0.5), inset 0 0 25px rgba(34, 211, 238, 0.3);
+        }
+
+        .neon-box-purple {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.25), inset 0 0 15px rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .neon-box-purple:hover {
+            transform: translateY(-5px) rotateX(2deg) rotateY(2deg);
+            box-shadow: 0 0 45px rgba(168, 85, 247, 0.5), inset 0 0 25px rgba(168, 85, 247, 0.3);
+        }
+
+        .neon-box-indigo {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.25), inset 0 0 15px rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .neon-box-indigo:hover {
+            transform: translateY(-5px) rotateX(-2deg) rotateY(-2deg);
+            box-shadow: 0 0 45px rgba(99, 102, 241, 0.5), inset 0 0 25px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Upgraded Lighting Glassmorphism Navigation Drawer with Precision Scrollbar */
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-right: 1px solid rgba(34, 211, 238, 0.6);
+            box-shadow: 0 0 40px rgba(34, 211, 238, 0.25), 15px 0 40px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Precision Vertical Scrollbar Styling for Side Drawer */
+        .drawer-scrollable {
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(34, 211, 238, 0.5) rgba(15, 23, 42, 0.6);
+        }
+        .drawer-scrollable::-webkit-scrollbar {
+            width: 6px;
+        }
+        .drawer-scrollable::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+        }
+        .drawer-scrollable::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #06b6d4, #6366f1, #a855f7);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(34, 211, 238, 0.8);
+        }
+
+        /* Animated Custom Hamburger Icon */
+        .hamburger-line {
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger-active .line1 {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+        .hamburger-active .line2 {
+            opacity: 0;
+        }
+        .hamburger-active .line3 {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
